@@ -1,0 +1,247 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+
+  border-top: 1px solid #8a6801;
+  background: #282828;
+  z-index: 4;
+}
+
+.information {
+  display: flex;
+  align-items: center;
+  margin: 21px 0 21px 10px;
+}
+
+.information .artwork {
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+}
+
+.information h1 {
+  font-size: 22px;
+}
+
+.playercontrols {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 350px;
+}
+
+.playercontrols img {
+  width: 45px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.playercontrols .bar {
+  width: 100%;
+  max-width: 350px;
+
+  margin-top: 1rem;
+}
+
+.bar input[type=range] {
+  height: 26px;
+  -webkit-appearance: none;
+  width: 100%;
+  background: transparent;
+}
+.bar input[type=range]:focus {
+  outline: none;
+}
+.bar input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 7px;
+  cursor: pointer;
+  background: #FFC107;
+  border-radius: 9px;
+  border: 0px solid #000000;
+}
+.bar input[type=range]::-webkit-slider-thumb {
+  height: 20px;
+  width: 19px;
+  border-radius: 50px;
+  background: #FFC107;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -6.5px;
+}
+.bar input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #FFC107;
+}
+.bar input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 7px;
+  cursor: pointer;
+  
+  background: #FFC107;
+  border-radius: 9px;
+}
+.bar input[type=range]::-moz-range-thumb {
+  height: 20px;
+  width: 19px;
+  border-radius: 50px;
+  background: #FFC107;
+  cursor: pointer;
+}
+.bar input[type=range]::-ms-track {
+  width: 100%;
+  height: 7px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+.bar input[type=range]::-ms-fill-lower {
+  background: #FFC107;
+  border: 0px solid #000000;
+  border-radius: 18px;
+  
+}
+.bar input[type=range]::-ms-fill-upper {
+  background: #FFC107;
+  border-radius: 18px;
+  
+}
+.bar input[type=range]::-ms-thumb {
+  height: 20px;
+  width: 19px;
+  border-radius: 50px;
+  background: #FFC107;
+  cursor: pointer;
+}
+.bar input[type=range]:focus::-ms-fill-lower {
+  background: #FFC107;
+}
+.bar input[type=range]:focus::-ms-fill-upper {
+  background: #FFC107;
+}
+
+.audiocontrols {
+  margin-right: 10px;
+  margin-left: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.audiocontrols input[type=range] {
+  margin-left: 10px;
+  -webkit-appearance: none;
+  width: 100%;
+}
+
+.volumebar {
+  -webkit-appearance: none; 
+  width: 100%; 
+  background: transparent; 
+}
+
+.volumebar {
+  height: 26px;
+  -webkit-appearance: none;
+  width: 100%;
+  background: transparent;
+}
+.volumebar:focus {
+  outline: none;
+}
+.volumebar::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 7px;
+  cursor: pointer;
+  background: #FFC107;
+  border-radius: 9px;
+  border: 0px solid #000000;
+}
+.volumebar::-webkit-slider-thumb {
+  height: 20px;
+  width: 19px;
+  border-radius: 50px;
+  background: #FFC107;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -6.5px;
+}
+.volumebar:focus::-webkit-slider-runnable-track {
+  background: #FFC107;
+}
+.volumebar::-moz-range-track {
+  width: 100%;
+  height: 7px;
+  cursor: pointer;
+  
+  background: #FFC107;
+  border-radius: 9px;
+}
+.volumebar::-moz-range-thumb {
+  height: 20px;
+  width: 19px;
+  border-radius: 50px;
+  background: #FFC107;
+  cursor: pointer;
+}
+.volumebar::-ms-track {
+  width: 100%;
+  height: 7px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+.volumebar::-ms-fill-lower {
+  background: #FFC107;
+  border: 0px solid #000000;
+  border-radius: 18px;
+  
+}
+.volumebar::-ms-fill-upper {
+  background: #FFC107;
+  border-radius: 18px;
+  
+}
+.volumebar::-ms-thumb {
+  height: 20px;
+  width: 19px;
+  border-radius: 50px;
+  background: #FFC107;
+  cursor: pointer;
+}
+.volumebar:focus::-ms-fill-lower {
+  background: #FFC107;
+}
+.volumebar:focus::-ms-fill-upper {
+  background: #FFC107;
+}
+
+.audiocontrols img {
+  width: 25px;
+}
+
+@media only screen and (max-width: 600px) {
+  .bar {
+    display: none;
+  }
+
+  .audiocontrols {
+    display: none;
+  }
+
+  .information {
+    width: 100%;
+  }
+
+  .information h1 {
+    font-size: 14px;
+  }
+}
