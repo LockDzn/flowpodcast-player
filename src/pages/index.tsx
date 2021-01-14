@@ -176,7 +176,15 @@ export default function Home() {
         title={selectedEpisode && !selectedEpisode.paused ? selectedEpisode.title : 'Flow Podcast - Player'} 
       />
 
-      <h1>Flow Podcast</h1>
+      <a href="https://flowpodcast.com.br/" target="_blank">
+        <img src="/logo.png" alt="Logo do Flow Podcast"/>
+      </a>
+
+      <p className={styles.information}>
+        <a href="https://github.com/LockDzn/flowpodcast-player" target="_blank">Github Repo</a>
+        <span>|</span>
+        <a href="https://twitter.com/nuloki_" target="_blank">Feito por: Ryan Souza</a>
+      </p>
 
       <div className={styles.cards}>
         {episodes.map((episode: EpisodeProps) => (

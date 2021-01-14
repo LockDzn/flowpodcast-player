@@ -30,6 +30,23 @@
   outline: hidden;
 }
 
+.information {
+  text-align: center;
+  font-size: 2.5vh;
+}
+
+.information span {
+  margin: 0 10px;
+}
+
+.information a {
+  color: #1e90ff;
+}
+
+.information a:hover {
+  text-decoration: underline;
+}
+
 @media only screen and (max-width: 600px) {
   .loadmore {
     margin-bottom: 20vh;
