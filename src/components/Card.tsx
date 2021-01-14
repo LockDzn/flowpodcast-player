@@ -13,6 +13,19 @@ type Props = {
   
 const Cards = ({ episode, playHandle, pauseHandle, selected }: Props) => {
 
+
+  const getCardTitle = (title: string) => {
+    if(episode.title.includes('#') && episode.title.includes('Extra')) {
+      return 'EXTRA - ' + episode.title.split('#')[1].split(' ')[0]
+    } else if(episode.title.includes('#') && episode.title.includes('Flow Quarentena Edition')) {
+      return 'Quarentena Edition - #' + episode.title.split('#')[1].split(' ')[0]
+    } else if(episode.title.includes('#')) {
+      return '#' + episode.title.split('#')[1].split(' ')[0]
+    } else {
+      return episode.title
+    }
+  }
+
   return (
     <div className={styles.card}>
       {episode.artwork ? (
@@ -34,11 +47,7 @@ const Cards = ({ episode, playHandle, pauseHandle, selected }: Props) => {
         />
       )}
       <div className={styles.footer}>
-        {episode.title.includes('#') ? (
-          <p className={styles.episodenum}>#{episode.title.split("#")[1]}</p>
-        ) : (
-          <p className={styles.episodenum}>{episode.title}</p>
-        )}
+        <p className={styles.episodenum}>{getCardTitle(episode.title)}</p>
         <p className={styles.description}>{episode.description}</p>
       </div>
     </div>
