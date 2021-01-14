@@ -1,6 +1,10 @@
 import Head from 'next/head'
 
-const Layout = () => {
+type Props = {
+  title: string
+}
+
+const Layout = ({ title }: Props) => {
   return (
     <div>
       <Head>
@@ -11,7 +15,13 @@ const Layout = () => {
 
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
 
-        <title>Flow Podcast - Player</title>
+        <meta property="og:url" content="https://flowpodcast.vercel.app/" key="ogurl" />
+        {/* <meta property="og:image" content={previewImage} key="ogimage" /> */}
+        <meta property="og:site_name" content="Flow Podcast Player" key="ogsitename" />
+        <meta property="og:title" content="Flow Podcast - Player" key="ogtitle" />
+        <meta property="og:description" content="Player de audio para o Flow Podcast" key="ogdesc" />
+
+        <title>{title}</title>
       </Head>
     </div>
   )

@@ -172,10 +172,9 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <Layout />
-      <Head>
-        <title>{selectedEpisode && !selectedEpisode.paused ? selectedEpisode.title : 'Flow Podcast - Player'}</title>
-      </Head>
+      <Layout
+        title={selectedEpisode && !selectedEpisode.paused ? selectedEpisode.title : 'Flow Podcast - Player'} 
+      />
 
       <h1>Flow Podcast</h1>
 
