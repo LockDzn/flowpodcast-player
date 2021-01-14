@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
@@ -28,12 +27,6 @@ type SelectedEpisodeProps = {
   mp3: string
   title: string
   paused: boolean
-}
-
-type PodcastPlayingProps = {
-  id: string
-  audioURL: string
-  state?: boolean
 }
 
 export default function Home() {
@@ -177,7 +170,7 @@ export default function Home() {
       />
 
       <a href="https://flowpodcast.com.br/" target="_blank">
-        <img src="/logo.png" alt="Logo do Flow Podcast"/>
+        <img className={styles.logo} src="/logo.png" alt="Logo do Flow Podcast"/>
       </a>
 
       <p className={styles.information}>
@@ -185,6 +178,8 @@ export default function Home() {
         <span>|</span>
         <a href="https://twitter.com/nuloki_" target="_blank">Feito por: Ryan Souza</a>
       </p>
+
+      <img className={styles.pwdvercel} height="40" src="/powered-by-vercel.svg" alt="Powered by Vercel"/>
 
       <div className={styles.cards}>
         {episodes.map((episode: EpisodeProps) => (
