@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { FormEvent, ReactEventHandler, useEffect, useState } from 'react'
 import axios from 'axios'
 
 import styles from '../styles/Home.module.css'
@@ -36,6 +36,9 @@ export default function Home() {
 
   const [selectedEpisode, setSelectedEpisode] = useState<SelectedEpisodeProps>()
   const [podcastAudio, setPodcastAudio] = useState<HTMLAudioElement>()
+
+  const [searchingEpisode, setSearchingEpisode] = useState<boolean>(false)
+  const [search, setSearch] = useState<string>('')
 
   useEffect(() => {
     loadEpisodes()
@@ -125,7 +128,6 @@ export default function Home() {
     }
   }
 
-
   const loadEpisodes = async () => {
     const episodesList = await axios.post('https://flow3r-api-master-2eqj3fl3la-ue.a.run.app/v2/episodes/list', 
       {
@@ -157,6 +159,26 @@ export default function Home() {
     setNextEpisodes(episodesList.data.paging.next)
   }
 
+  const loadFilteredEpisodes = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if(search == '') return loadEpisodes()
+
+    setSearchingEpisode(true)
+    const episodesList = await axios.get(`http://localhost:3000/api/episodes?search=${search}`)
+      .then((response) => {
+        setEpisodes(response.data)
+        setSearchingEpisode(false)
+      }).catch((err) => {
+        alert(err.response.data.message)
+        setSearchingEpisode(false)
+      })
+  }
+
+  const handleChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value)
+  }
+  
   if(episodes.length == 0) {
     return (
       <Loading />
@@ -181,21 +203,44 @@ export default function Home() {
 
       <img className={styles.pwdvercel} height="40" src="/powered-by-vercel.svg" alt="Powered by Vercel"/>
 
+      <form className={styles.formsearch} onSubmit={loadFilteredEpisodes}>
+        <input 
+          className={styles.inputsearch}
+          type="text"
+          onChange={handleChangeSearch}
+          value={search}
+          placeholder="Procurar por episodes"
+        />
+        <button className={styles.buttonsearch}>
+          <img src="/loupe.svg" alt="Lupa"/>
+        </button>
+      </form>
+
       <div className={styles.cards}>
-        {episodes.map((episode: EpisodeProps) => (
-          <Card 
-            episode={episode} 
-            key={episode.id}
-            playHandle={() => playAudio(episode)}
-            pauseHandle={() => pauseAudio()}
-            selected={selectedEpisode?.id == episode.id && !selectedEpisode.paused ? true : false}
-          />
-        ))}
+        {episodes && !searchingEpisode ? 
+          episodes.map((episode: EpisodeProps) => (
+            <Card 
+              episode={episode} 
+              key={episode.id}
+              playHandle={() => playAudio(episode)}
+              pauseHandle={() => pauseAudio()}
+              selected={selectedEpisode?.id == episode.id && !selectedEpisode.paused ? true : false}
+            />
+        )) :
+        (
+          <Loading />
+        )
+        }
+
       </div>
 
-      <button onClick={() => loadMoreEpisodes()} className={styles.loadmore}>
-        Carregar mais
-      </button>
+      {episodes.length >= 8 && !searchingEpisode ? (
+        <button onClick={() => loadMoreEpisodes()} className={styles.loadmore}>
+          Carregar mais
+        </button>
+      ): (
+        ''
+      )}
 
       {selectedEpisode && podcastAudio ? (
         <Player 
