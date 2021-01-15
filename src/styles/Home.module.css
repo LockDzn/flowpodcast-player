@@ -55,6 +55,52 @@
   margin-bottom: 1.7rem;
 }
 
+.formsearch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputsearch {
+  text-align: center;
+  font-size: 1.8vh;
+
+  height: 2.2rem;
+  width: 11rem;
+
+  margin-right: 1rem;
+
+  border-radius: 10px;
+  border: 1px solid #cecece;
+}
+
+.inputsearch:focus {
+  outline: none;
+  border: 1px solid #FFC107;
+}
+
+.buttonsearch {
+  background: #FFC107;
+  border: none;
+  border-radius: 5px;
+
+  height: 2.2rem;
+  width: 2.5rem;
+  margin-left: 0.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttonsearch:focus {
+  outline: none;
+}
+
+.buttonsearch img {
+  width: 20px;
+}
+
 @media only screen and (max-width: 600px) {
   .loadmore {
     margin-bottom: 20vh;
