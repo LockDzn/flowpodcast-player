@@ -165,7 +165,7 @@ export default function Home() {
     if(search == '') return loadEpisodes()
 
     setSearchingEpisode(true)
-    const episodesList = await axios.get(`http://localhost:3000/api/episodes?search=${search}`)
+    const episodesList = await axios.get(`https://flowpodcast-player-git-feature.lockdzn.vercel.app/api/episodes?search=${search}`)
       .then((response) => {
         setEpisodes(response.data)
         setSearchingEpisode(false)
