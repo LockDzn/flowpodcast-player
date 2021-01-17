@@ -1,3 +1,4 @@
+import { GetStaticProps } from 'next'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
@@ -6,7 +7,6 @@ import styles from '../styles/Home.module.css'
 import Card from '../components/Card'
 import Player from '../components/Player'
 import Layout from '../components/Layout'
-import Loading from '../components/Loading'
 
 type EpisodeProps = {
   id: string
@@ -29,17 +29,13 @@ type SelectedEpisodeProps = {
   paused: boolean
 }
 
-export default function Home() {
+const Home = ({ eps, epsNext } : { eps: EpisodeProps[], epsNext: string }) => {
 
-  const [episodes, setEpisodes] = useState<EpisodeProps[]>([])
-  const [nextEpisodes, setNextEpisodes] = useState<string>()
+  const [episodes, setEpisodes] = useState<EpisodeProps[]>(eps)
+  const [nextEpisodes, setNextEpisodes] = useState<string>(epsNext)
 
   const [selectedEpisode, setSelectedEpisode] = useState<SelectedEpisodeProps>()
   const [podcastAudio, setPodcastAudio] = useState<HTMLAudioElement>()
-
-  useEffect(() => {
-    loadEpisodes()
-  }, [])
     
   const playAudio = (episode: EpisodeProps) => {
 
@@ -125,19 +121,6 @@ export default function Home() {
     }
   }
 
-
-  const loadEpisodes = async () => {
-    const episodesList = await axios.post('https://flow3r-api-master-2eqj3fl3la-ue.a.run.app/v2/episodes/list', 
-      {
-        params: {
-          filter: "episodes"
-        }
-      })
-
-    setEpisodes(episodesList.data.episodes)
-    setNextEpisodes(episodesList.data.paging.next)
-  }
-
   const loadMoreEpisodes = async () => {
     const episodesList = await axios.post('https://flow3r-api-master-2eqj3fl3la-ue.a.run.app/v2/episodes/list', 
       {
@@ -155,12 +138,6 @@ export default function Home() {
     })
 
     setNextEpisodes(episodesList.data.paging.next)
-  }
-
-  if(episodes.length == 0) {
-    return (
-      <Loading />
-    )
   }
 
   return (
@@ -210,3 +187,24 @@ export default function Home() {
     </div>
   )
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const response = await axios.post('https://flow3r-api-master-2eqj3fl3la-ue.a.run.app/v2/episodes/list', 
+    {
+      params: {
+        filter: "episodes"
+      }
+    })
+
+  const data = await response.data
+
+  return {
+    props: {
+      eps: data.episodes,
+      epsNext: data.paging.next,
+    },
+    revalidate: 10
+  }
+};
+
+export default Home
