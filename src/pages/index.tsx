@@ -142,34 +142,38 @@ const Home = ({ eps, epsNext } : { eps: EpisodeProps[], epsNext: string }) => {
 
   return (
     <div className={styles.container}>
-      <Layout
-        title={selectedEpisode && !selectedEpisode.paused ? selectedEpisode.title : 'Flow Podcast - Player'} 
-      />
+      <header className={styles.header}>
+        <Layout
+          title={selectedEpisode && !selectedEpisode.paused ? selectedEpisode.title : 'Flow Podcast - Player'} 
+        />
 
-      <a href="https://flowpodcast.com.br/" target="_blank">
-        <img className={styles.logo} src="/logo.png" alt="Logo do Flow Podcast"/>
-      </a>
+        <a href="https://flowpodcast.com.br/" target="_blank">
+          <img className={styles.logo} src="/logo.png" alt="Logo do Flow Podcast"/>
+        </a>
 
-      <p className={styles.information}>
-        <a href="https://github.com/LockDzn/flowpodcast-player" target="_blank">Github Repo</a>
-        <span>|</span>
-        <a href="https://twitter.com/nuloki_" target="_blank">Feito por: Ryan Souza</a>
-      </p>
+        <p className={styles.information}>
+          <a href="https://github.com/LockDzn/flowpodcast-player" target="_blank">Github Repo</a>
+          <span>|</span>
+          <a href="https://twitter.com/nuloki_" target="_blank">Feito por: Ryan Souza</a>
+        </p>
 
-      <img className={styles.pwdvercel} height="40" src="/powered-by-vercel.svg" alt="Powered by Vercel"/>
-
-      <div className={styles.cards}>
-        {episodes.map((episode: EpisodeProps) => (
-          <Card 
-            episode={episode} 
-            key={episode.id}
-            playHandle={() => playAudio(episode)}
-            pauseHandle={() => pauseAudio()}
-            selected={selectedEpisode?.id == episode.id && !selectedEpisode.paused ? true : false}
-          />
-        ))}
-      </div>
-
+        <img className={styles.pwdvercel} height="40" src="/powered-by-vercel.svg" alt="Powered by Vercel"/>
+      </header>
+      
+      <main>
+        <div className={styles.cards}>
+          {episodes.map((episode: EpisodeProps) => (
+            <Card 
+              episode={episode} 
+              key={episode.id}
+              playHandle={() => playAudio(episode)}
+              pauseHandle={() => pauseAudio()}
+              selected={selectedEpisode?.id == episode.id && !selectedEpisode.paused ? true : false}
+            />
+          ))}
+        </div>
+      </main>
+  
       <button onClick={() => loadMoreEpisodes()} className={styles.loadmore}>
         Carregar mais
       </button>
@@ -182,7 +186,7 @@ const Home = ({ eps, epsNext } : { eps: EpisodeProps[], epsNext: string }) => {
           pauseHandle={pauseAudio} 
         />
       ) : (
-        <div></div>
+        null
       )}
     </div>
   )

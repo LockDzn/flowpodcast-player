@@ -23,10 +23,28 @@ const Player = ({ episode, audio, playHandle, pauseHandle }: Props) => {
     const [audioPercentage, setAudioPercentage] = useState<number>(0)
     const [audioVolume, setAudioVolume] = useState<number>(10)
 
+    const [currentTime, setCurrentTime] = useState<string>('00:00')
+    const [duration , setDuration] = useState<string>('00:00')
+
+    function getTime(time: number) {
+        if(!isNaN(time)) {
+            return Math.floor(time / 60) + ':' + ('0' + Math.floor(time % 60)).slice(-2)
+        }
+    }
+
     audio.ontimeupdate = () => {
         const currentPercentage = (audio.currentTime / audio.duration) * 100
 
+        const currentTimeFormed = getTime(audio.currentTime) || '00:00'
+        const durationFormed = getTime(audio.duration) || '00:00'
+
+        setCurrentTime(currentTimeFormed)
+        setDuration(durationFormed)
         setAudioPercentage(currentPercentage)
+    }
+
+    audio.onload = () => {
+        console.log('carregando')
     }
 
     audio.onended = () => {
@@ -43,15 +61,13 @@ const Player = ({ episode, audio, playHandle, pauseHandle }: Props) => {
 
     const handleChangeAudioPercentage = (e: React.ChangeEvent<HTMLInputElement>) => {
         setAudioPercentage(Number(e.target.value))
-        setAudioPercentage(Number(e.target.value))
-        setAudioPercentage(Number(e.target.value))
-        setAudioPercentage(Number(e.target.value))
-        audio.currentTime = audio.duration / 100 * audioPercentage
+        audio.currentTime = (audio.duration / 100) * audioPercentage
+        console.log(audio.duration / 100)
     }
 
     const handleChangeAudioVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(Number(e.target.value))
         setAudioVolume(Number(e.target.value))
+
         if(Number(e.target.value) >= 10){
             audio.volume = 1
         }else {
@@ -63,7 +79,7 @@ const Player = ({ episode, audio, playHandle, pauseHandle }: Props) => {
         <div className={styles.container}>
             <div className={styles.information}>
                 <img className={styles.artwork} src={episode.artwork} alt=""/>
-                <h1>{episode.title.split("-")[0]}</h1>
+                <h1 title={episode.title.split("-")[0]}>{episode.title.split("-")[0]}</h1>
             </div>
 
             <div className={styles.playercontrols}>
@@ -86,14 +102,20 @@ const Player = ({ episode, audio, playHandle, pauseHandle }: Props) => {
                     />
                 )}
 
-                <div className={styles.bar}>
-                    <input 
-                        type="range"
-                        min="0" 
-                        max="100"
-                        onChange={handleChangeAudioPercentage}
-                        value={audioPercentage}
-                    />
+                <div className={styles.progressbar}>
+                    <span>{currentTime}</span>
+                
+                    <div className={styles.bar}>
+                        <input
+                            type="range"
+                            min="0"
+                            max="100"
+                            onChange={handleChangeAudioPercentage}
+                            value={audioPercentage}
+                        />
+                    </div>
+                        
+                    <span>{duration}</span>
                 </div>
             </div>
 
